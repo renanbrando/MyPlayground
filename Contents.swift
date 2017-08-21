@@ -84,3 +84,26 @@ var y = 20
 swapInts(a: &x, b: &y)
 print(x,y)
 
+func swapValues<J>(a: inout J, b: inout J){
+    
+    let temp = a
+    a = b
+    b = temp
+}
+
+
+var z = "Me"
+var w = "You"
+
+swapValues(a: &z, b: &w)
+print(z, w)
+
+class Vehicles {
+    
+    var speed: UInt = 0
+    var model: String
+    
+    init(model: String){
+        self.model = model
+    }
+}
