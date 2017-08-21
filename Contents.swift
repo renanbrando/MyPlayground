@@ -98,12 +98,41 @@ var w = "You"
 swapValues(a: &z, b: &w)
 print(z, w)
 
-class Vehicles {
+class Vehicle {
     
-    var speed: UInt = 0
+    private var _speed: UInt = 0
     var model: String
+    var speed: UInt {
+        get {return _speed}
+        set {
+            let finalSpeed = min(maxSpeed, newValue)
+            _speed = finalSpeed
+        }
+    }
+    
+    static let speedUnit = "km/h"
+    
+    var maxSpeed: UInt {
+        return 250
+    }
     
     init(model: String){
         self.model = model
     }
+    
+    func descript() -> String {
+        return "Vehicle: \(model), speed: \(speed)"
+    }
+    
+    class func alert() {
+        print("If you drink, you can drive but I will not join you!")
+    }
 }
+
+print("The unity utilized in Vehicle is \(Vehicle.speedUnit)")
+var vehicle = Vehicle(model: "Ferrari")
+vehicle.speed = 600
+print(vehicle.speed)
+vehicle.descript()
+
+Vehicle.alert()
