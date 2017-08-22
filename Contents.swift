@@ -1,6 +1,7 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
+import Foundation
 
 // Error handling
 enum AccessError : Error {
@@ -136,3 +137,64 @@ print(vehicle.speed)
 vehicle.descript()
 
 Vehicle.alert()
+
+
+class Car: Vehicle {
+    var licencePlate: String
+    var driver: String?
+    
+    subscript(index: Int) -> String {
+        get {
+            let plateArray = Array(self.licencePlate.characters)
+            return String(plateArray[index])
+        }
+        set{
+            var plateArray = Array(self.licencePlate.characters)
+            plateArray[index] = Character(newValue)
+            self.licencePlate = String(plateArray)
+        }
+    }
+    
+    override var maxSpeed: UInt {
+        return 150
+    }
+    
+    init(model: String, licensePlate: String){
+        self.licencePlate = licensePlate
+        super.init(model: model)
+    }
+    
+    convenience init(driver: String) {
+        self.init(model: "", licensePlate: "")
+        self.driver = driver
+        
+    }
+    
+    override func descript() -> String {
+        return "\(super.descript()), \(licencePlate)"
+    }
+}
+
+var car = Car(model: "Fusca", licensePlate: "AMP7541")
+car[6] = "5"
+print(car.licencePlate)
+
+
+if car[6] == "1" || car[6] == "2" {
+    print("Only after 8pm")
+}
+
+var name: String = "Renan Ribeiro Brando"
+
+extension String{
+    var count: Int {
+        return self.characters.count
+    }
+    
+    func initials() -> String {
+        return self.components(separatedBy: " ").map({String($0.characters.first!)}).joined()
+    }
+}
+
+print("My name has \(name.count) letters")
+print("My initial are \(name.initials())")
